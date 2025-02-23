@@ -1,0 +1,8 @@
+pip>=25.0
+jupyter
+ipykernel
+python-dotenv
+ibm_db
+pandas
+matplotlib
+itables
