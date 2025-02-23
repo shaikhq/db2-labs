@@ -11,7 +11,7 @@ For general Python environment setup and VS Code configuration steps, please ref
 You can open a terminal in two ways:
 - **Option A:** Open the terminal window directly after launching VS Code and navigate to the `explain/single-query` folder:
   ```sh
-  cd explain
+  cd explain/single-query
   ```
 - **Option B:** From the **Explorer** panel on the left, right-click on the `explain/single-query` folder and choose **Open in Integrated Terminal**.
 
