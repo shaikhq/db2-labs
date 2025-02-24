@@ -5,6 +5,8 @@ This README provides instructions specific to setting up and using the EXPLAIN t
 
 For general Python environment setup and VS Code configuration steps, please refer to the [top-level README](../../README.md) in the main `db2-labs` directory.
 
+**This notebook needs to run on the Db2 server.**
+
 ## Running the EXPLAIN Tool
 
 ### 1. Open the Terminal in VS Code
