@@ -1,4 +1,5 @@
-Batch Query Execution and Explain Plan Collection for Db2
+# Batch Query Execution and Explain Plan Collection for Db2
+
 This repository provides a batch version of the Explain Notebook, enabling the execution of multiple SQL queries against a Db2 database and the collection of their corresponding EXPLAIN plans. Each query is processed to remove schema references, executed against the default schema, and the resulting explain data is stored in organized output directories.
 
 📋 Features
