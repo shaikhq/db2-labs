@@ -48,7 +48,7 @@ SELECT column1, column2 FROM table2 WHERE condition;
 Run the batch notebook using Papermill:
 
 ```shell
-papermill explain_batch_notebook.ipynb output_notebook.ipynb
+papermill batch_explain.ipynb output_notebook.ipynb
 ```
 
 This command executes the explain_batch_notebook.ipynb with the provided queries and outputs the results to output_notebook.ipynb.
