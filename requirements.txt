@@ -6,3 +6,4 @@ ibm_db
 pandas
 matplotlib
 itables
+papermill

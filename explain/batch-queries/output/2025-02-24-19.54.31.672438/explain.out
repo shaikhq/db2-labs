@@ -1,0 +1,466 @@
+DB2 Universal Database Version 11.5, 5622-044 (c) Copyright IBM Corp. 1991, 2019
+Licensed Material - Program Property of IBM
+IBM DATABASE 2 Explain Table Format Tool
+
+
+
+******************** EXPLAIN INSTANCE ********************
+
+DB2_VERSION:       11.05.8
+FORMATTED ON DB:   TPCDS
+SOURCE_NAME:       SYSSH200
+SOURCE_SCHEMA:     NULLID  
+SOURCE_VERSION:      
+EXPLAIN_TIME:      2025-02-24-19.54.31.672438
+EXPLAIN_REQUESTER: DB2INST1
+
+Database Context:
+----------------
+	Parallelism:          None
+	CPU Speed:            1.771291e-07
+	Comm Speed:           100
+	Buffer Pool size:     216564
+	Sort Heap size:       71903
+	Database Heap size:   6485
+	Lock List size:       382440
+	Maximum Lock List:    98
+	Average Applications: 1
+	Locks Available:      11993318
+
+Package Context:
+---------------
+	SQL Type:           Dynamic
+	Optimization Level: 7
+	Blocking:           Block All Cursors
+	Isolation Level:    Cursor Stability
+
+
+
+---------------- STATEMENT 1  SECTION 4 ----------------
+	QUERYNO:       1
+	QUERYTAG:                          
+	Statement Type:   Select
+	Updatable:        No
+	Deletable:        No
+	Query Degree:     1
+
+Original Statement:
+------------------
+SELECT 
+  CR_RETURNING_ADDR_SK,
+  CS_SALES_PRICE 
+FROM 
+  CATALOG_RETURNS 
+  INNER JOIN CATALOG_SALES 
+  ON CS_ORDER_NUMBER = CR_ORDER_NUMBER AND 
+  CS_ITEM_SK = CR_ITEM_SK 
+WHERE 
+  CS_NET_PAID <= +68 AND 
+  CR_REFUNDED_HDEMO_SK <= 939
+
+
+Optimized Statement:
+-------------------
+SELECT 
+  Q1.CR_RETURNING_ADDR_SK AS "CR_RETURNING_ADDR_SK",
+  Q2.CS_SALES_PRICE AS "CS_SALES_PRICE" 
+FROM 
+  DB2INST1.CATALOG_RETURNS AS Q1,
+  DB2INST1.CATALOG_SALES AS Q2 
+WHERE 
+  (Q2.CS_ORDER_NUMBER = Q1.CR_ORDER_NUMBER) AND 
+  (Q2.CS_ITEM_SK = Q1.CR_ITEM_SK) AND 
+  (Q1.CR_REFUNDED_HDEMO_SK <= 939) AND 
+  (Q2.CS_NET_PAID <= 68)
+
+Explain level:    Explain from section
+
+Access Plan:
+-----------
+	Total Cost: 		76433.8
+	Query Degree:		1
+
+
+                  Rows 
+               Rows Actual
+                 RETURN
+                 (   1)
+                  Cost 
+                   I/O 
+                   |
+                 145824 
+                 348882 
+                 CTQ   
+                 (   2)
+                 76433.8 
+                   NA 
+                   |
+                 145824 
+                   NA 
+                 ^HSJOIN
+                 (   3)
+                 76433.3 
+                   NA 
+           /-------+-------\
+     1.17999e+07         1.77952e+06 
+         NA                  NA 
+       TBSCAN              TBSCAN
+       (   4)              (   5)
+       69653.7             6658.63 
+         NA                  NA 
+         |                   |
+     1.43997e+08         1.44044e+07 
+         NA                  NA 
+ CO-TABLE: DB2INST1  CO-TABLE: DB2INST1
+    CATALOG_SALES      CATALOG_RETURNS
+         Q2                  Q1
+
+
+Operator Symbols :
+------------------
+
+   Symbol      Description
+   ---------   ------------------------------------------
+   >JOIN     : Left outer join
+    JOIN<    : Right outer join
+   >JOIN<    : Full outer join
+   xJOIN     : Left antijoin
+    JOINx    : Right antijoin
+   ^JOIN     : Left early out
+    JOIN^    : Right early out
+    ATQ      : Asynchrony
+    BTQ      : Broadcast
+    CTQ      : Column-organized data
+    DTQ      : Directed
+    LTQ      : Intra-partition parallelism
+    MTQ      : Merging (sorted)
+    STQ      : Scatter
+   RCTQ      : Column-organized data with row as the source
+    XTQ      : XML aggregation
+     TQ*     : Listener
+
+
+Extended Diagnostic Information:
+--------------------------------
+
+No extended Diagnostic Information for this statement.
+
+
+Plan Details:
+-------------
+
+
+	1) RETURN: (Return Result)
+		Cumulative Total Cost: 		76433.8
+		Cumulative First Row Cost: 	76433.3
+		Estimated Bufferpool Buffers: 	50480
+
+		Arguments:
+		---------
+		BLDLEVEL: (Build level)
+			DB2 v11.5.8.0 : s2209201700
+		ENVVAR  : (Environment Variable)
+			DB2_ANTIJOIN=EXTEND
+		EXECUTID: (Executable ID)
+			0100000000000000590A00000000000000000000020020250224195421760067
+		HEAPUSE : (Maximum Statement Heap Usage)
+			144 Pages
+		PLANID  : (Access plan identifier)
+			af9885308569e967
+		SEMEVID : (Semantic environment identifier)
+			431f78d03d9bb07e
+		STMTHEAP: (Statement heap size)
+			16384
+		STMTID  : (Normalized statement identifier)
+			07e96c78dbde4eea
+		TENANTID: (Compiled In Tenant ID)
+			0
+		TENANTNM: (Compiled In Tenant Name)
+			SYSTEM
+
+		Input Streams:
+		-------------
+			6) From Operator #2
+
+				Estimated number of rows: 	145824
+				Actual number of rows: 		348882
+
+
+	2) TQ    : (Table Queue)
+		Cumulative Total Cost: 		76433.8
+		Cumulative First Row Cost: 	76433.3
+		Estimated Bufferpool Buffers: 	50480
+
+		Arguments:
+		---------
+		LISTENER: (Listener Table Queue type)
+			FALSE
+		TQDEGREE: (Degree of Intra-Partition parallelism)
+			1
+		TQMERGE : (Merging Table Queue flag)
+			FALSE
+		TQORIGIN: (Table Queue Origin type)
+			COLUMN-ORGANIZED DATA
+		TQREAD  : (Table Queue Read type)
+			READ AHEAD
+		UNIQUE  : (Uniqueness required flag)
+			FALSE
+
+		Input Streams:
+		-------------
+			5) From Operator #3
+
+				Estimated number of rows: 	145824
+				Actual number of rows: 		NA
+
+
+		Output Streams:
+		--------------
+			6) To Operator #1
+
+				Estimated number of rows: 	145824
+				Actual number of rows: 		348882
+
+
+	3) HSJOIN: (Hash Join)
+		Cumulative Total Cost: 		76433.3
+		Cumulative First Row Cost: 	76433.3
+		Estimated Bufferpool Buffers: 	50480
+
+		Arguments:
+		---------
+		EARLYOUT: (Early Out flag)
+			LEFT
+		SEMIJOIN: (Semi-join flag)
+			FALSE
+
+		Predicates:
+		----------
+		2) Predicate used in Join, 
+			Comparison Operator: 		Equal (=)
+			Subquery Input Required: 	No
+			Filter Factor: 			6.25e-08
+
+			Predicate Text:
+			--------------
+			(Q2.CS_ORDER_NUMBER = Q1.CR_ORDER_NUMBER)
+
+
+		3) Predicate used in Join, 
+			Comparison Operator: 		Equal (=)
+			Subquery Input Required: 	No
+			Filter Factor: 			4.90735e-06
+
+			Predicate Text:
+			--------------
+			(Q2.CS_ITEM_SK = Q1.CR_ITEM_SK)
+
+
+
+		Input Streams:
+		-------------
+			2) From Operator #4
+
+				Estimated number of rows: 	1.17999e+07
+				Actual number of rows: 		NA
+
+			4) From Operator #5
+
+				Estimated number of rows: 	1.77952e+06
+				Actual number of rows: 		NA
+
+
+		Output Streams:
+		--------------
+			5) To Operator #2
+
+				Estimated number of rows: 	145824
+				Actual number of rows: 		NA
+
+
+	4) TBSCAN: (Table Scan)
+		Cumulative Total Cost: 		69653.7
+		Cumulative First Row Cost: 	7.05229
+		Estimated Bufferpool Buffers: 	50480
+
+		Arguments:
+		---------
+		JN INPUT: (Join input leg)
+			OUTER
+		PREFETCH: (Type of Prefetch)
+			DYNAMIC LIST        
+		ROWLOCK : (Row Lock intent)
+			SHARE (CS/RS)
+		TABLOCK : (Table Lock intent)
+			INTENT SHARE
+		TBISOLVL: (Table access Isolation Level)
+			CURSOR STABILITY
+
+		Predicates:
+		----------
+		5) Sargable Predicate, 
+			Comparison Operator: 		Less Than or Equal (<=)
+			Subquery Input Required: 	No
+			Filter Factor: 			0.0819457
+
+			Predicate Text:
+			--------------
+			(Q2.CS_NET_PAID <= 68)
+
+
+
+		Input Streams:
+		-------------
+			1) From Object DB2INST1.CATALOG_SALES
+
+				Estimated number of rows: 	1.43997e+08
+
+				Column Names:
+				------------
+				+Q2.$RID$+Q2.CS_SALES_PRICE+Q2.CS_NET_PAID
+				+Q2.CS_ITEM_SK+Q2.CS_ORDER_NUMBER
+
+
+		Output Streams:
+		--------------
+			2) To Operator #3
+
+				Estimated number of rows: 	1.17999e+07
+				Actual number of rows: 		NA
+
+
+	5) TBSCAN: (Table Scan)
+		Cumulative Total Cost: 		6658.63
+		Cumulative First Row Cost: 	7.05015
+		Estimated Bufferpool Buffers: 	4782
+
+		Arguments:
+		---------
+		JN INPUT: (Join input leg)
+			INNER
+		PREFETCH: (Type of Prefetch)
+			DYNAMIC LIST        
+		ROWLOCK : (Row Lock intent)
+			SHARE (CS/RS)
+		TABLOCK : (Table Lock intent)
+			INTENT SHARE
+		TBISOLVL: (Table access Isolation Level)
+			CURSOR STABILITY
+
+		Predicates:
+		----------
+		4) Sargable Predicate, 
+			Comparison Operator: 		Less Than or Equal (<=)
+			Subquery Input Required: 	No
+			Filter Factor: 			0.12354
+
+			Predicate Text:
+			--------------
+			(Q1.CR_REFUNDED_HDEMO_SK <= 939)
+
+
+
+		Input Streams:
+		-------------
+			3) From Object DB2INST1.CATALOG_RETURNS
+
+				Estimated number of rows: 	1.44044e+07
+
+				Column Names:
+				------------
+				+Q1.$RID$+Q1.CR_RETURNING_ADDR_SK
+				+Q1.CR_REFUNDED_HDEMO_SK+Q1.CR_ITEM_SK
+				+Q1.CR_ORDER_NUMBER
+
+
+		Output Streams:
+		--------------
+			4) To Operator #3
+
+				Estimated number of rows: 	1.77952e+06
+				Actual number of rows: 		NA
+
+
+Objects Used in Access Plan:
+---------------------------
+
+	Schema:   DB2INST1
+	Name:     CATALOG_RETURNS
+	Type:     Column-organized Table
+			Last statistics update: 	2021-05-20-10.16.10.778323
+			Number of rows: 		14404374
+			Number of buffer pool pages: 	24421
+			Distinct row values: 		No
+			Tablespace name: 		TS_LARGE
+			Tablespace overhead: 		6.725000
+			Tablespace transfer rate: 	0.320000
+			Prefetch page count: 		32
+			Container extent page count: 	32
+			Table overflow record count: 	0
+			Table Active Blocks: 		-1
+			Average Row Compression Ratio: 	-1
+			Percentage Rows Compressed: 	-1
+			Average Compressed Row Size: 	-1
+
+	Schema:   DB2INST1
+	Name:     CATALOG_SALES
+	Type:     Column-organized Table
+			Last statistics update: 	2021-05-20-10.57.30.801605
+			Number of rows: 		143997072
+			Number of buffer pool pages: 	320903
+			Distinct row values: 		No
+			Tablespace name: 		TS_LARGE
+			Tablespace overhead: 		6.725000
+			Tablespace transfer rate: 	0.320000
+			Prefetch page count: 		32
+			Container extent page count: 	32
+			Table overflow record count: 	0
+			Table Active Blocks: 		-1
+			Average Row Compression Ratio: 	-1
+			Percentage Rows Compressed: 	-1
+			Average Compressed Row Size: 	-1
+
+Runtime statistics for objects Used in Access Plan:
+-----------------------------------------------------
+
+	Schema: DB2INST1
+	Name: 	CATALOG_RETURNS
+	Type: 	Table
+
+			Member 0
+			---------
+
+				Metrics
+				--------------------
+				rows_reads:14404374
+				object_data_l_reads:32
+				object_data_p_reads:10
+				object_data_lbp_pages_found:22
+				object_data_gbp_indep_pages_found_in_lbp:22
+				object_col_l_reads:6309
+				object_col_lbp_pages_found:6309
+				object_col_gbp_indep_pages_found_in_lbp:6309
+				object_data_caching_tier_gbp_indep_pages_found:22
+				object_col_caching_tier_gbp_indep_pages_found:6309
+
+	Schema: DB2INST1
+	Name: 	CATALOG_SALES
+	Type: 	Table
+
+			Member 0
+			---------
+
+				Metrics
+				--------------------
+				rows_reads:143997065
+				object_data_l_reads:49
+				object_data_p_reads:28
+				object_data_lbp_pages_found:21
+				object_data_gbp_indep_pages_found_in_lbp:21
+				object_col_l_reads:65551
+				object_col_p_reads:197
+				object_col_lbp_pages_found:65354
+				object_col_gbp_indep_pages_found_in_lbp:65354
+				object_data_caching_tier_gbp_indep_pages_found:21
+				object_col_caching_tier_gbp_indep_pages_found:65354
+
