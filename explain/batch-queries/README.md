@@ -9,6 +9,9 @@ Export explain tables and actual execution statistics.
 Save outputs in timestamped subfolders for each query.
 Support non-interactive batch execution using Papermill.
 
+**This notebook needs to run on a Db2 server.**
+
+
 🚀 Getting Started (Linux)
 1. Clone the Repository
 
@@ -23,6 +26,7 @@ Ensure you have Python installed. Create and activate a virtual environment name
 python3 -m venv .venv
 source .venv/bin/activate
 ```
+For general Python environment setup and VS Code configuration steps, please refer to the [top-level README](../../README.md) in the main `db2-labs` directory.
 
 Install the required dependencies. Since the requirements.txt file is located in the top-level project directory, provide the relative path to it:
 
