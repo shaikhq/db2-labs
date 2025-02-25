@@ -5,13 +5,15 @@ This README provides instructions specific to setting up and using the EXPLAIN t
 
 For general Python environment setup and VS Code configuration steps, please refer to the [top-level README](../../README.md) in the main `db2-labs` directory.
 
+**This notebook needs to run on the Db2 server.**
+
 ## Running the EXPLAIN Tool
 
 ### 1. Open the Terminal in VS Code
 You can open a terminal in two ways:
 - **Option A:** Open the terminal window directly after launching VS Code and navigate to the `explain/single-query` folder:
   ```sh
-  cd explain
+  cd explain/single-query
   ```
 - **Option B:** From the **Explorer** panel on the left, right-click on the `explain/single-query` folder and choose **Open in Integrated Terminal**.
 
